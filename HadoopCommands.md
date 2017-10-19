@@ -15,7 +15,8 @@ $HADOOP_HOME/sbin/mr-jobhistory-daemon.sh start historyserver
 
 ### Run JPS on NameNode
 jps
-#####Output:
+
+##### Output:
 	4454 ResourceManager
  	3490 NameNode
 	3709 SecondaryNameNode
@@ -23,9 +24,10 @@ jps
 	4738 JobHistoryServer
 
 
-##Run JPS on DataNodes
+## Run JPS on DataNodes
 jps
-#####Output:
+
+##### Output:
 	322 DataNode
 	812 Jps
 	659 NodeManager
