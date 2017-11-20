@@ -11,6 +11,6 @@
 ```
 2. Create a jar file with all Java file in it
 3. Put the input file in hdfs
-	`` $hdfs dfs -put <local_file_path> <hdfs_file_path> ``
+	``` $hdfs dfs -put <local_file_path> <hdfs_file_path> ```
 4. Run the map reduce Java program in hdfs
-	`` $hadoop jar <Jar file name> <Class name> <Input file in HDFS> <Output file in HDFS> ``
+	``` $hadoop jar <Jar file name> <Class name> <Input file in HDFS> <Output file in HDFS> ```
