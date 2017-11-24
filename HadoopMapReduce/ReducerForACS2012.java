@@ -18,7 +18,8 @@ public class ReducerForACS2012 extends Reducer<Text, IntWritable, Text, IntWrita
       result.set(sum);
       
       keyText.set(getCitizenshipStatus(key.toString()));
-      context.write(keyText, result);
+      // context.write(keyText, result);
+      context.write(key, result);
     }
 
 	private String getCitizenshipStatus(String citField) {

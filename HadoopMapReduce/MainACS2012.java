@@ -13,10 +13,14 @@ public class MainACS2012 {
 	public static void main(String[] args) throws Exception {
 	    Configuration conf = new Configuration();
 	    String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
-	    if (otherArgs.length != 2) {
+	    if (otherArgs.length != 3) {
 	      System.err.println("Usage: MainACS2012 <in> <out>");
 	      System.exit(2);
 	    }
+	    
+	    Fields field = new Fields();
+	    field.populateFromFile(otherArgs[2]);
+	    MapperForACS2012.citizenFieldNo = field.getFieldValues("DEAR").index;
 	    Job job = new Job(conf, "ACS2012");
 	    job.setJarByClass(MainACS2012.class);
 	    job.setMapperClass(MapperForACS2012.class);
@@ -30,5 +34,5 @@ public class MainACS2012 {
 	    FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
 	    System.exit(job.waitForCompletion(true) ? 0 : 1);
 	  }
-
+	
 }
