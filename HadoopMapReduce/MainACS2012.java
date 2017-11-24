@@ -24,7 +24,7 @@ public class MainACS2012 {
 	    job.setReducerClass(ReducerForACS2012.class);
 	    job.setOutputKeyClass(Text.class);
 	    job.setOutputValueClass(IntWritable.class);
-	    job.setMapOutputKeyClass(IntWritable.class);
+	    job.setMapOutputKeyClass(Text.class);
 	    job.setMapOutputValueClass(IntWritable.class);
 	    FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
 	    FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
