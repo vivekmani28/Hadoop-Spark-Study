@@ -6,6 +6,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 
 public class ReducerForACS2012 extends Reducer<Text, IntWritable, Text, IntWritable> {
+	private static FieldsMaping fieldDic;
     private IntWritable result = new IntWritable();
     private Text keyText = new Text();
     public void reduce(Text key, Iterable<IntWritable> values, 
@@ -17,9 +18,9 @@ public class ReducerForACS2012 extends Reducer<Text, IntWritable, Text, IntWrita
       }
       result.set(sum);
       
-      keyText.set(getCitizenshipStatus(key.toString()));
-      // context.write(keyText, result);
-      context.write(key, result);
+      keyText.set(getValue(key.toString()));
+      context.write(keyText, result);
+      // context.write(key, result);
     }
 
 	private String getCitizenshipStatus(String citField) {
@@ -38,5 +39,17 @@ public class ReducerForACS2012 extends Reducer<Text, IntWritable, Text, IntWrita
 			return "Unknown-" + citField;
 				
 		}
+	}
+	
+	private String getValue(String key){
+		String[] name_value = key.split("_");
+		if(name_value.length == 2 && fieldDic != null){
+			return fieldDic.getRepValue(name_value[0], name_value[1]);
+		}
+		return "Unknown-" + key;
+	}
+	
+	public static void setFieldsMap(FieldsMaping flds){
+		fieldDic = flds;
 	}
 }
