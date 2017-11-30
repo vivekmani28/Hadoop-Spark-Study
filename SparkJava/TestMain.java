@@ -14,14 +14,13 @@ import scala.Tuple2;
 
 public class TestMain {
 	private static String[] fieldNames = {"CIT"};
-	private static String path = "E:/DIC/SparkJava/SparkJavaTest/src/main/resources/";
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	    HashMap<String, FieldInfo> fieldMaps = FieldsMaping.populateFromFile(path + "Input/acs12_1yr_p.csv");
+	    HashMap<String, FieldInfo> fieldMaps = FieldsMaping.populateFromFile(args[2]);
 		
 		SparkConf conf = new SparkConf();
 		JavaSparkContext sc = new JavaSparkContext(conf);
-		JavaRDD<String> lines = sc.textFile(path + "Input/ss12pusa.csv");
+		JavaRDD<String> lines = sc.textFile(args[0]);
 		
 		JavaPairRDD<String, Integer> key_val = lines.flatMapToPair(new PairFlatMapFunction<String, String, Integer>() {
 
@@ -45,7 +44,7 @@ public class TestMain {
 			}
 		});
 		
-		answer.saveAsTextFile(path + "Output/out.txt");
+		answer.saveAsTextFile(args[1]);
 	}
 
 }
