@@ -13,11 +13,19 @@ import org.apache.spark.api.java.function.PairFlatMapFunction;
 import scala.Tuple2;
 
 public class TestMain {
-	private static String[] fieldNames = {"CIT"};
+	private static ArrayList<String> fieldNames = new ArrayList<>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	    HashMap<String, FieldInfo> fieldMaps = FieldsMaping.populateFromFile(args[2]);
 		
+	    if(args.length == 3)
+	    	fieldNames.add("ST");
+	    else{
+	    	for(int i=3; i < args.length; i++){
+	    		fieldNames.add(args[i]);
+	    	}
+	    }
+	    
 		SparkConf conf = new SparkConf();
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		JavaRDD<String> lines = sc.textFile(args[0]);

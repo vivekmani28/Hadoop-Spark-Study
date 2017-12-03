@@ -37,14 +37,14 @@
 ``export JAVA_HOME=/usr``
 
 #### add this to $HADOOP_CONF_DIR/core-site.xml
-``
+```
   <configuration>
     <property>
       <name>fs.defaultFS</name>
       <value>hdfs://<namenode_public_dns>:9000</value>
     </property>
   </configuration>
-``
+```
 
 # NameNode
 
@@ -65,7 +65,7 @@
   ``sudo chown ubuntu /etc/hosts``
 
 ## etc/hosts 
-### private_ip dns
+### <private_ip> <dns>
 #### Change as needed
 ```
   172.31.92.156 ec2-52-90-13-204.compute-1.amazonaws.com

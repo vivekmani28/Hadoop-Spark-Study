@@ -22,15 +22,22 @@ public class MainACS2012 extends Configured implements Tool{
 
 	@Override
 	public int run(String[] arg0) throws Exception {
-	    if (arg0.length != 3) {
-		      System.err.println("Usage: MainACS2012 <in> <out>");
+		String keys = "";
+	    if (arg0.length != 4) {
+	    	if(arg0.length != 3){
+		      System.err.println(arg0.length+"Usage: MainACS2012 <in> <out> <p/h> <field>");
+		      System.err.println(arg0.length);
 		      System.exit(2);
+	    	}else{
+	    		keys = "ST";
+	    	}
 		}
-
+	    keys = arg0[3];
+	    
 	    FieldsMaping field = new FieldsMaping();
 	    field.populateFromFile(arg0[2]);
 	    
-	    MapperForACS2012.setField("CIT", field);
+	    MapperForACS2012.setField(keys, field);
 	    ReducerForACS2012.setFieldsMap(field);
 	    
 		Configuration conf = this.getConf();
@@ -39,7 +46,7 @@ public class MainACS2012 extends Configured implements Tool{
 	    job.setJarByClass(MainACS2012.class);
 	    
 	    job.setMapperClass(MapperForACS2012.class);
-	    //job.setCombinerClass(ReducerForACS2012.class);
+	    job.setCombinerClass(ReducerForACS2012.class);
 	    job.setReducerClass(ReducerForACS2012.class);
 	    
 	    job.setOutputKeyClass(Text.class);

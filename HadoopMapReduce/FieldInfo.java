@@ -22,7 +22,7 @@ class FieldInfo{
 		
 		if(this.value_map != null && this.value_map.containsKey(value))
 			return this.value_map.get(value);
-		return key + "_" + value +"_Unknown";
+		return key + "-" + value +"_Unknown";
 		
 	}
 	private void populateHashMap(String key_value){

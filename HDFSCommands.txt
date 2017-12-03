@@ -1,0 +1,3 @@
+
+hdfs dfs -ls /
+hdfs dfs -mkdir /user
