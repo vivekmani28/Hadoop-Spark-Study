@@ -28,6 +28,7 @@ public class TestMain {
 	    
 		SparkConf conf = new SparkConf();
 		JavaSparkContext sc = new JavaSparkContext(conf);
+		sc.hadoopConfiguration().set("mapreduce.input.fileinputformat.input.dir.recursive","true");
 		JavaRDD<String> lines = sc.textFile(args[0]);
 		
 		JavaPairRDD<String, Integer> key_val = lines.flatMapToPair(new PairFlatMapFunction<String, String, Integer>() {

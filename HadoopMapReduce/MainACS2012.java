@@ -46,12 +46,12 @@ public class MainACS2012 extends Configured implements Tool{
 	    job.setJarByClass(MainACS2012.class);
 	    
 	    job.setMapperClass(MapperForACS2012.class);
-	    job.setCombinerClass(ReducerForACS2012.class);
+	    //job.setCombinerClass(ReducerForACS2012.class);
 	    job.setReducerClass(ReducerForACS2012.class);
 	    
 	    job.setOutputKeyClass(Text.class);
 	    job.setOutputValueClass(IntWritable.class);
-	    
+	    FileInputFormat.setInputDirRecursive(job, true);
 	    FileInputFormat.addInputPath(job, new Path(arg0[0]));
 	    FileOutputFormat.setOutputPath(job, new Path(arg0[1]));
 	    
