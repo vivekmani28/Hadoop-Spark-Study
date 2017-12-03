@@ -45,6 +45,13 @@ scp -o StrictHostKeychecking=no namenode:/usr/local/hadoop/etc/hadoop/core-site.
 scp -o StrictHostKeychecking=no datanode1:/usr/local/hadoop/etc/hadoop/hdfs-site.xml /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 scp -o StrictHostKeychecking=no datanode1:/usr/local/hadoop/etc/hadoop/yarn-site.xml /usr/local/hadoop/etc/hadoop/yarn-site.xml
 
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo cp /etc/fstab /etc/fstab.bak
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
 mkdir -p $HADOOP_HOME/hadoop_data/hdfs/datanode
 
 #Start Services in newly added node. Do not stop hdfs or yarn
