@@ -1,0 +1,34 @@
+#Launch AWS instance
+#Configure putty and winscp
+
+#ssh
+copy .pem file
+chmod 600 .pemfile
+Add namenode to .ssh/config along with .pem file
+# Append the new host to namenode config and copy it to all other datanode 
+cat cfg.txt | ssh namenode "cat >> ~/.ssh/config"
+scp namenode:~/.ssh/config .ssh/
+scp namenode:~/.ssh/config datanode1:~/.ssh/
+
+##Do it somehow
+# copy sshkey_rsa.pub of namenode in the new datanode
+Append it .ssh/authorized_keys
+
+#######Do as given in git ConfigHadoop.md
+##Install java, hadoop, environment variable... and hadoop-env.sh javapath
+->
+scp namenode:/usr/local/hadoop/etc/hadoop/core-site.xml $HADOOP_CONF_DIR/core-site.xml
+
+##Add private_id dns in /etc/hosts
+ssh namenode "echo datanode3 >> $HADOOP_CONF_DIR/slaves"
+
+scp datanode1:/usr/local/hadoop/etc/hadoop/hdfs-site.xml /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+sudo mkdir -p $HADOOP_HOME/hadoop_data/hdfs/datanode
+
+sudo chown -R ubuntu $HADOOP_HOME
+scp datanode1:/usr/local/hadoop/etc/hadoop/yarn-site.xml /usr/local/hadoop/etc/hadoop/yarn-site.xml
+
+
+Start Services in newly added node. Do not stop hdfs or yarn
+$HADOOP_HOME/sbin/hadoop-daemon.sh start datanode
+$HADOOP_HOME/sbin/yarn-daemon.sh start nodemanager
